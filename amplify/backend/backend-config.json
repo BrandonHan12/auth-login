@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "ifyrdlogindbd1ac91": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
