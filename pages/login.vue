@@ -1,56 +1,36 @@
 <template>
-  <div class="max-w-md mx-auto pt-6">
-    <div>
-      <h1 class="text-xl mb-3">Login</h1>
-
-      <!-- Unauthenticated -->
-      <div v-if="!$auth.isAuthenticated">
-        <form @submit.prevent="login">
-          <input
-            v-model="form.email"
-            type="email"
-            placeholder="Email"
-            class="form-control"
-          />
-          <input
-            v-model="form.password"
-            type="password"
-            placeholder="Password"
-            class="form-control"
-          />
-          <button type="submit" class="button--green">Login</button>
-        </form>
-
-        <nuxt-link to="/register">Need an account? Register</nuxt-link>
+  <div>
+    <!-- <div v-if="authState !== 'signedin'">You are signed out.</div> !-->
+    <amplify-authenticator username-alias="email">
+      <div v-if="authState === 'signedin' && user">
+        <div>Hello, {{ user.username }}</div>
       </div>
-
-      <!-- Authenticated -->
-      <div v-else>
-        You're logged in as {{ $auth.email }}.
-        <button @click="$store.dispatch('auth/logout')" class="button--green">
-          Logout
-        </button>
-      </div>
-    </div>
+      <amplify-sign-out></amplify-sign-out>
+    </amplify-authenticator>
   </div>
 </template>
-
 <script>
+import { onAuthUIStateChange } from '@aws-amplify/ui-components'
+
 export default {
-  data: () => ({
-    form: {
-      email: '',
-      password: '',
-    },
-  }),
+  name: 'AuthStateApp',
+  created() {
+    onAuthUIStateChange((authState, authData) => {
+      this.authState = authState
+      this.user = authData
+    })
+  },
+  data() {
+    return {
+      user: undefined,
+      authState: undefined,
+    }
+  },
 
   methods: {
-    async login() {
-      try {
-        await this.$store.dispatch('auth/login', this.form)
-        this.$router.push('/')
-      } catch (error) {
-        console.log({ error })
+    storeToken(token) {
+      if (process.browser) {
+        localStorage.setItem('authToken', token)
       }
     },
   },

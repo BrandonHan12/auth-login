@@ -1,10 +1,13 @@
 {
   "auth": {
-    "ifyrdlogindbd1ac91": {
+    "aloginc44959cd": {
       "service": "Cognito",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
     }
-  }
+  },
+  "function": {},
+  "api": {}
 }

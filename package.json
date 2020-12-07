@@ -1,5 +1,5 @@
 {
-  "name": "ifyrdlogin",
+  "name": "auth-mod",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,10 +9,14 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^0.2.30",
+    "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.2",
     "aws-amplify": "^3.3.11",
+    "cookieparser": "^0.1.0",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "js-cookie": "^2.2.1",
+    "nuxt": "^2.14.9"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",
