@@ -105,6 +105,16 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-login',
+          title: 'Login',
+          to: '/login'
+        },
+        {
+          icon: 'mdi-ufo-outline',
+          title: 'club',
+          to: '/club'
         }
       ],
       miniVariant: false,
