@@ -42,13 +42,13 @@ export default {
           app_status: true,
         },
         {
-          name: 'tennis club',
-          ClubId: '0451f93e390e11eb89f0277f6f2ce07e',
+          name: 'Syion Test Club',
+          ClubId: '186a7d0a3ab811eba0b8d16301237726',
           app_status: 'pending',
         },
         {
-          name: 'swimming club',
-          ClubId: '0467f93e390e11eb89f0277f6f2ce07e',
+          name: 'Shohoku',
+          ClubId: '76deb0873aa511eb9baa177712c929d6',
           app_status: 'pending',
         },
       ],
@@ -69,4 +69,41 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr:not(:last-child)
+  > td:last-child,
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr:not(:last-child)
+  > th:last-child {
+  border: none;
+}
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > thead
+  > tr:last-child
+  > th {
+  border: none;
+}
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr:not(:last-child)
+  > td:not(.v-data-table__mobile-row),
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr:not(:last-child)
+  > th:not(.v-data-table__mobile-row) {
+  border: none;
+}
+</style>
