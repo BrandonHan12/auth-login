@@ -11,13 +11,22 @@
 </template>
 <script>
 import { onAuthUIStateChange } from '@aws-amplify/ui-components'
-
+import { Auth } from 'aws-amplify'
 export default {
   name: 'AuthStateApp',
   created() {
     onAuthUIStateChange((authState, authData) => {
       this.authState = authState
       this.user = authData
+
+      Auth.currentSession().then((res) => {
+        let accessToken = res.getAccessToken().getJwtToken()
+        let idToken = res.getIdToken().getJwtToken()
+        const auth = { accessToken, idToken }
+        this.$store.commit('setAuth', auth) // mutating to store for client rendering
+        Cookie.set('auth', auth) // saving token in cookie for server rendering
+        this.$router.push('/')
+      })
     })
   },
   data() {
@@ -29,6 +38,7 @@ export default {
 
   methods: {
     storeToken(token) {
+      console.log(storeToken)
       if (process.browser) {
         localStorage.setItem('authToken', token)
       }

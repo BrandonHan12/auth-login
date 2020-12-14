@@ -52,8 +52,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // '@nuxtjs/auth',
-    '@nuxtjs/auth-next',
   ],
   auth: {
     // Options
@@ -82,9 +80,6 @@ export default {
       },
     },
   },
-  // router: {
-  //   middleware: ['auth']
-  // }
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
 }
