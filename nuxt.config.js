@@ -5,34 +5,39 @@ export default {
   head: {
     titleTemplate: '%s - auth-mod',
     title: 'auth-mod',
-    meta: [{
-        charset: 'utf-8'
+    meta: [
+      {
+        charset: 'utf-8',
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
+        content: 'width=device-width, initial-scale=1',
       },
       {
         hid: 'description',
         name: 'description',
-        content: ''
+        content: '',
       },
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }],
+    link: [
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico',
+      },
+    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [{
-    src: '~/plugins/amplify.js',
-    mode: 'client'
-  }],
+  plugins: [
+    {
+      src: '~/plugins/amplify.js',
+      mode: 'client',
+    },
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -47,12 +52,9 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // '@nuxtjs/auth',
-    '@nuxtjs/auth-next'
   ],
   auth: {
     // Options
-
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -78,9 +80,6 @@ export default {
       },
     },
   },
-  // router: {
-  //   middleware: ['auth']
-  // }
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
 }

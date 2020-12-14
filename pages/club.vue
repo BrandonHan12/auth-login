@@ -6,7 +6,8 @@
 
 <script>
 export default {
-  async fetch() {
+  middleware: 'authenticated',
+  async fetchData() {
     const club = await this.$axios.$get(
       'https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev/club'
     )
