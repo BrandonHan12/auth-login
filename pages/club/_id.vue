@@ -1,8 +1,6 @@
 <template>
   <v-container fluid>
-    <h1>id:{{ $route.params.id }}</h1>
-    <div v-for="(club, i) in clubs" v-if="$route.params.id == club.ClubId">
-      {{ i.clubId }}
+    <div v-for="club in clubs" v-if="$route.params.id == club.ClubId">
       <v-card
         max-width="80%"
         elevation="0"
@@ -57,6 +55,12 @@
                       {{ club.addressUnit }}
                     </td>
                   </tr>
+                  <tr>
+                    <td>Status</td>
+                    <td v-if="club.status == 0">pending</td>
+                    <td v-else-if="club.status == 1">Approved</td>
+                    <td v-else="club.status != 1">Rejected</td>
+                  </tr>
                 </tbody>
               </v-simple-table>
               <v-col col="12" class="d-flex justify-end pt-10 pr-0">
@@ -64,12 +68,17 @@
                   color="success"
                   class="mr-2"
                   type="post"
-                  @click="clubDetails(club)"
+                  @click="approveTest(club)"
                 >
                   Approve
                   <v-icon>mdi-check</v-icon>
                 </v-btn>
-                <v-btn color="error" type="post">
+                <v-btn
+                  color="error"
+                  class="mr-5"
+                  type="post"
+                  @click="rejectClub(club)"
+                >
                   Reject
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
@@ -139,31 +148,52 @@ export default {
           postalCode: '059608',
           addressBlock: '11',
         },
+        {
+          organizationName: 'cuervo golf club',
+          clubDescription: '321',
+          officeEmail: 'hello@razorbros.com',
+          officePhone: '88888888',
+          country: 'Afghanistan',
+          subdomain: 'cuervogc',
+          icon: 'https://via.placeholder.com/45',
+          banner: 'https://via.placeholder.com/468x90?text=468x90+Full+Banner',
+          addressRoad: 'TELOK BLANGAH CRESCENT, MOUNT FABER VIEW',
+          addressUnit: '#02-36',
+          addressBlock: '24',
+          postalCode: '159949',
+          // primaryColor: 'fb9000',
+          interest: 'Sports',
+          ClubId: '0443f93e390e11eb89f0277f6f2ce07e',
+          // bannerText: '123',
+          // secondaryColor: '009000',
+        },
       ],
     }
   },
-  // club:
-  //   organizationName: 'cuervo golf club',
-  //   clubDescription: '321',
-  //   officeEmail: 'hello@razorbros.com',
-  //   officePhone: '88888888',
-  //   country: 'Afghanistan',
-  //   subdomain: 'cuervogc',
-  //   icon: 'https://via.placeholder.com/45',
-  //   banner: 'https://via.placeholder.com/468x90?text=468x90+Full+Banner',
-  //   addressRoad: 'TELOK BLANGAH CRESCENT, MOUNT FABER VIEW',
-  //   addressUnit: '#02-36',
-  //   addressBlock: '24',
-  //   postalCode: '159949',
-  //   // primaryColor: 'fb9000',
-  //   interest: 'Sports',
-  //   ClubId: '0443f93e390e11eb89f0277f6f2ce07e',
-  //   // bannerText: '123',
-  //   // secondaryColor: '009000',
-  // ,
+  // axios getClubs
+  // async asyncData({ params, $axios }) {
+  //   const getClubs = await $axios.$get(
+  //     `https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev/club`
+  //   )
+  //   return { getClubs }
+  // },
+
   methods: {
-    clubDetails(club) {
+    approveClub(club) {
+      // const approve = $axios.$post('https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev/approval')
+      console.log('approving ' + club.organizationName)
       console.log(club)
+    },
+    rejectClub(club) {
+      console.log('rejected ' + club.organizationName)
+      club.status = 2
+      console.log(club)
+    },
+    approveTest(club) {
+      // params: {ClubId: xxxx, status : {"1" for approve} , "2" {reject}}
+      club.status = 1
+      console.log(club)
+      // this.$router.push('/club/', club.clubId)
     },
   },
 }
@@ -197,10 +227,6 @@ export default {
   > tr:not(:last-child)
   > th:not(.v-data-table__mobile-row) {
   border-bottom: none;
-}
-.v-data-table > .v-data-table__wrapper > table > tbody > tr > td,
-.v-data-table > .v-data-table__wrapper > table > thead > tr > td,
-.v-data-table > .v-data-table__wrapper > table > tfoot > tr > td {
 }
 
 .v-card__subtitle,

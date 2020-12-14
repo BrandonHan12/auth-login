@@ -11,7 +11,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in getclublist" :key="item.name">
+          <tr v-for="item in clubList" :key="item.name">
             <td v-model="formData.name">{{ item.name }}</td>
             <td>{{ item.app_status }}</td>
             <td>
@@ -28,14 +28,13 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
       formData: {
         name: '',
       },
-      getclublist: [
+      clubList: [
         {
           name: 'chess club',
           ClubId: '0443f93e390e11eb89f0277f6f2ce07e',

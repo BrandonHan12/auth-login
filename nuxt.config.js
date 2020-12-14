@@ -61,7 +61,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: 'https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev',
+    // baseURL: 'https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev',
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)

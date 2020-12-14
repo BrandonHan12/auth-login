@@ -73,6 +73,11 @@ export default {
           title: 'club',
           to: '/club',
         },
+        {
+          icon: 'mdi-home-group',
+          title: 'resources',
+          to: '/resources',
+        },
       ],
       miniVariant: false,
       right: true,
