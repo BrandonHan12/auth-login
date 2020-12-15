@@ -1,23 +1,34 @@
 <template>
   <div>
     <h1>Club Approval List</h1>
-    <v-simple-table>
+    <p v-if="$fetchState.pending">Fetching clubs..</p>
+    <p v-else-if="$fetchState.error">An error occurred</p>
+    <v-simple-table v-else>
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">Name</th>
+            <th class="text-left">Club Name</th>
+            <th class="text-left">Representative</th>
             <th class="text-left">Application Status</th>
-            <th class="text-left">View More</th>
+            <th class="text-left"></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in clubList" :key="item.name">
+            <td>{{ item.clubName }}</td>
             <td>{{ item.name }}</td>
-            <td>{{ item.app_status }}</td>
+            <td>
+              <v-chip class="ma-2" v-if="item.status == 0"> Pending </v-chip>
+              <v-chip class="ma-2" v-else-if="item.status == 1" color="success">
+                Approved
+              </v-chip>
+              <v-chip class="ma-2" v-else-if="item.status == 2" color="danger">
+                Rejected
+              </v-chip>
+            </td>
             <td>
               <v-btn color="primary" @click="loadClub(item)">
-                view more details
-                <v-icon>mdi-view-list</v-icon>
+                See details
               </v-btn>
             </td>
           </tr>
@@ -30,7 +41,13 @@
 <script>
 export default {
   async fetch() {
-    this.clubList = await this.$axios.get('club')
+    const { data } = await this.$axios.get('/club')
+    this.clubList = data
+  },
+  head() {
+    return {
+      title: 'IFYRD - Club List',
+    }
   },
   middleware: 'auth',
   data() {
@@ -46,7 +63,6 @@ export default {
     //approval/rejection function
     async loadClub(formData) {
       this.$router.push('/club/' + formData.ClubId)
-      console.log(formData.name)
     },
   },
 }

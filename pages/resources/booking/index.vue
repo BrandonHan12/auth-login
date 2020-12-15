@@ -17,7 +17,6 @@ export default {
     async check(params, query, req, res, redirect, error) {
       res = 'asdf'
       await this.$axios.post('/resources/booking/', res)
-      console.log('posted')
     },
   },
 }

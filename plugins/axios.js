@@ -1,11 +1,13 @@
 import { Auth } from 'aws-amplify'
 
-export default function ({ $axios, $store, redirect }) {
+export default function ({ $axios, redirect }) {
   $axios.onRequest(async (config) => {
     const session = await Auth.currentSession()
     const idToken = session.getIdToken().getJwtToken()
 
-    $axios.setHeader('Authorization', `Bearer ${idToken}`)
+    config.headers.common['Authorization'] = `Bearer ${idToken}`
+    console.log({ config })
+    return config
   })
 
   $axios.onError((error) => {

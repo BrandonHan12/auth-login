@@ -1,47 +1,54 @@
 <template>
-  <v-container fluid>
+  <div>
+    <confirm-dialog ref="confirm" />
     <div
       v-for="club in clubs"
       v-if="$route.params.id == club.ClubId"
       :key="club.ClubId"
     >
-      <v-card
-        max-width="80%"
-        elevation="0"
-        justify-between
-        class="mx-auto my-12"
-      >
-        <v-card-title primary-title> </v-card-title>
+      <v-card max-width="100%" elevation="0" justify-between class="mx-0 my-2">
         <v-row>
-          <v-col cols="10" class="mx-auto">
-            <v-col class="d-flex justify-center">
-              <v-img max-width="80%" :src="club.banner" />
-            </v-col>
+          <v-col cols="12">
+            <!-- <v-col class="d-flex justify-center">
+              <span>Club Banner</span>
+              <v-img max-width="50%" :src="club.banner" />
+            </v-col> -->
             <v-card-text>
               <v-simple-table>
                 <tbody>
                   <tr>
+                    <td>Banner</td>
+                    <td>
+                      <v-img max-width="20%" class="my-6" :src="club.banner" />
+                    </td>
+                  </tr>
+                  <tr>
                     <td>Icon</td>
                     <td>
-                      <v-img :src="club.icon" height="50" width="50" />
+                      <v-img
+                        :src="club.icon"
+                        class="my-6"
+                        height="50"
+                        width="50"
+                      />
                     </td>
                   </tr>
                   <tr>
                     <td>Club Name</td>
                     <td>
-                      {{ club.organizationName }}
+                      {{ club.clubName }}
                     </td>
                   </tr>
                   <tr>
                     <td>Contact</td>
                     <td>
-                      {{ club.officePhone }}
+                      {{ club.phone }}
                     </td>
                   </tr>
                   <tr>
                     <td>Email</td>
                     <td>
-                      {{ club.officeEmail }}
+                      {{ club.email }}
                     </td>
                   </tr>
                   <tr>
@@ -61,21 +68,40 @@
                   </tr>
                   <tr>
                     <td>Status</td>
-                    <td v-if="club.status == 0">pending</td>
-                    <td v-else-if="club.status == 1">Approved</td>
-                    <td v-else-if="club.status !== 1">Rejected</td>
+                    <td>
+                      <v-chip class="ma-2" v-if="club.status == 0">
+                        Pending
+                      </v-chip>
+                      <v-chip
+                        class="ma-2"
+                        v-else-if="club.status == 1"
+                        color="success"
+                      >
+                        Approved
+                      </v-chip>
+                      <v-chip
+                        class="ma-2"
+                        v-else-if="club.status == 2"
+                        color="danger"
+                      >
+                        Rejected
+                      </v-chip>
+                    </td>
                   </tr>
                 </tbody>
               </v-simple-table>
-              <v-col col="12" class="d-flex justify-end pt-10 pr-0">
+              <v-col
+                col="12"
+                class="d-flex justify-end pt-10 pr-0"
+                v-if="club.status == 0"
+              >
                 <v-btn
                   color="success"
                   class="mr-2"
                   type="post"
-                  @click="approveTest(club)"
+                  @click="approveClub(club)"
                 >
-                  Approve
-                  <v-icon>mdi-check</v-icon>
+                  <v-icon>mdi-check</v-icon>&nbsp;Approve
                 </v-btn>
                 <v-btn
                   color="error"
@@ -83,8 +109,8 @@
                   type="post"
                   @click="rejectClub(club)"
                 >
-                  Reject
                   <v-icon>mdi-close</v-icon>
+                  &nbsp; Reject
                 </v-btn>
               </v-col>
             </v-card-text>
@@ -92,112 +118,61 @@
         </v-row>
       </v-card>
     </div>
-    <v-row>
-      <v-col cols="12" class="d-flex justify-center">
-        <v-btn color="secondary" to="/club">
-          back
-          <v-icon>mdi-backspace-outline</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
+import ConfirmDialog from '@/components/ConfirmDialog'
 export default {
+  components: {
+    ConfirmDialog,
+  },
   data() {
     return {
-      clubs: [
-        {
-          officeEmail: 'me@shohoku.com',
-          subdomain: 'shohoku',
-          icon:
-            'https://ifyrd-registration-stack-cms-bucket.s3-ap-southeast-1.amazonaws.com/uploads/images/76deb0873aa511eb9baa177712c929d6/icon/icon.png',
-          banner:
-            'https://ifyrd-registration-stack-cms-bucket.s3-ap-southeast-1.amazonaws.com/uploads/images/76deb0873aa511eb9baa177712c929d6/banner/banner.png',
-          status: '0',
-          officePhone: '88881010',
-          addressRoad: 'Kanagawa ',
-          country: 'Afghanistan',
-          addressUnit: '01-01',
-          primaryColor: '#ed0707',
-          interest: 'Sports',
-          ClubId: '76deb0873aa511eb9baa177712c929d6',
-          clubDescription: "Kanagawa's #1",
-          organizationName: 'Shohoku',
-          bannerText: 'Shohoku',
-          secondaryColor: '#242323',
-          postalCode: '0000',
-          addressBlock: '1',
-        },
-        {
-          officeEmail: 'sec@syion.com',
-          subdomain: 'syion',
-          icon:
-            'https://ifyrd-registration-stack-cms-bucket.s3-ap-southeast-1.amazonaws.com/uploads/images/186a7d0a3ab811eba0b8d16301237726/icon/icon.png',
-          banner:
-            'https://ifyrd-registration-stack-cms-bucket.s3-ap-southeast-1.amazonaws.com/uploads/images/186a7d0a3ab811eba0b8d16301237726/banner/banner.png',
-          status: '0',
-          officePhone: '69627955',
-          addressRoad: 'KENG CHEOW STREET, THE RIVERSIDE PIAZZA',
-          country: 'Singapore',
-          addressUnit: '02-10',
-          primaryColor: '#df0707',
-          interest: 'Wealth',
-          ClubId: '186a7d0a3ab811eba0b8d16301237726',
-          clubDescription: 'Lorem ipsum',
-          organizationName: 'Syion Test Club',
-          bannerText: 'Syion',
-          secondaryColor: '#ffffff',
-          postalCode: '059608',
-          addressBlock: '11',
-        },
-        {
-          organizationName: 'cuervo golf club',
-          clubDescription: '321',
-          officeEmail: 'hello@razorbros.com',
-          officePhone: '88888888',
-          country: 'Afghanistan',
-          subdomain: 'cuervogc',
-          icon: 'https://via.placeholder.com/45',
-          banner: 'https://via.placeholder.com/468x90?text=468x90+Full+Banner',
-          addressRoad: 'TELOK BLANGAH CRESCENT, MOUNT FABER VIEW',
-          addressUnit: '#02-36',
-          addressBlock: '24',
-          postalCode: '159949',
-          // primaryColor: 'fb9000',
-          interest: 'Sports',
-          ClubId: '0443f93e390e11eb89f0277f6f2ce07e',
-          // bannerText: '123',
-          // secondaryColor: '009000',
-        },
-      ],
+      clubs: [],
     }
   },
-  // axios getClubs
-  // async asyncData({ params, $axios }) {
-  //   const getClubs = await $axios.$get(
-  //     `https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev/club`
-  //   )
-  //   return { getClubs }
-  // },
-
+  async fetch() {
+    const { data } = await this.$axios.get('/club')
+    this.clubs = data
+  },
   methods: {
-    approveClub(club) {
-      // const approve = $axios.$post('https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev/approval')
-      console.log('approving ' + club.organizationName)
-      console.log(club)
+    async approveClub(club) {
+      if (
+        await this.$refs.confirm.open(
+          'Confirm',
+          "Are you sure you want to approve this club's application?"
+        )
+      ) {
+        const approve = await this.$axios.$post('/club/approval', {
+          ClubId: club.ClubId,
+          status: '1',
+        })
+
+        this.$notifier.showMessage({
+          content:
+            'Succesfully approved the club registration for ' + club.clubName,
+          color: 'success',
+        })
+      }
     },
-    rejectClub(club) {
-      console.log('rejected ' + club.organizationName)
-      club.status = 2
-      console.log(club)
-    },
-    approveTest(club) {
-      // params: {ClubId: xxxx, status : {"1" for approve} , "2" {reject}}
-      club.status = 1
-      console.log(club)
-      // this.$router.push('/club/', club.clubId)
+    async rejectClub(club) {
+      if (
+        await this.$refs.confirm.open(
+          'Confirm',
+          "Are you sure you want to reject this club's application?"
+        )
+      ) {
+        const approve = await this.$axios.post('/club/approval', {
+          ClubId: club.ClubId,
+          status: '2',
+        })
+        this.$notifier.showMessage({
+          content:
+            'Succesfully rejected the club registration for ' + club.clubName,
+          color: 'success',
+        })
+      }
     },
   },
 }

@@ -4,7 +4,7 @@ export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - auth-mod',
-    title: 'auth-mod',
+    title: 'IFYRD',
     meta: [
       {
         charset: 'utf-8',
@@ -38,6 +38,7 @@ export default {
       mode: 'client',
     },
     '~/plugins/notifier.js',
+    '~/plugins/axios.js',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
