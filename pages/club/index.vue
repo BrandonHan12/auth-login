@@ -12,7 +12,7 @@
         </thead>
         <tbody>
           <tr v-for="item in clubList" :key="item.name">
-            <td v-model="formData.name">{{ item.name }}</td>
+            <td>{{ item.name }}</td>
             <td>{{ item.app_status }}</td>
             <td>
               <v-btn color="primary" @click="loadClub(item)">
@@ -29,36 +29,20 @@
 
 <script>
 export default {
+  async fetch() {
+    this.clubList = await this.$axios.get('club')
+  },
+  middleware: 'auth',
   data() {
     return {
       formData: {
         name: '',
       },
-      clubList: [
-        {
-          name: 'chess club',
-          ClubId: '0443f93e390e11eb89f0277f6f2ce07e',
-          app_status: true,
-        },
-        {
-          name: 'Syion Test Club',
-          ClubId: '186a7d0a3ab811eba0b8d16301237726',
-          app_status: 'pending',
-        },
-        {
-          name: 'Shohoku',
-          ClubId: '76deb0873aa511eb9baa177712c929d6',
-          app_status: 'pending',
-        },
-      ],
+      clubList: [],
     }
   },
 
   methods: {
-    formdetails(formData) {
-      console.log(formData.name)
-      console.log(formData.app_status)
-    },
     //approval/rejection function
     async loadClub(formData) {
       this.$router.push('/club/' + formData.ClubId)

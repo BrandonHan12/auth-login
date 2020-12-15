@@ -37,6 +37,7 @@ export default {
       src: '~/plugins/amplify.js',
       mode: 'client',
     },
+    '~/plugins/notifier.js',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -56,10 +57,9 @@ export default {
   auth: {
     // Options
   },
-
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    // baseURL: 'https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev',
+    baseURL: process.env.API_URL,
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)

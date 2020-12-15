@@ -1,6 +1,10 @@
 <template>
   <v-container fluid>
-    <div v-for="club in clubs" v-if="$route.params.id == club.ClubId">
+    <div
+      v-for="club in clubs"
+      v-if="$route.params.id == club.ClubId"
+      :key="club.ClubId"
+    >
       <v-card
         max-width="80%"
         elevation="0"
@@ -59,7 +63,7 @@
                     <td>Status</td>
                     <td v-if="club.status == 0">pending</td>
                     <td v-else-if="club.status == 1">Approved</td>
-                    <td v-else="club.status != 1">Rejected</td>
+                    <td v-else-if="club.status !== 1">Rejected</td>
                   </tr>
                 </tbody>
               </v-simple-table>

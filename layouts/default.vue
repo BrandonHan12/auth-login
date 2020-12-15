@@ -23,6 +23,7 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item @click="handleLogout">
+          <!--    v-if="this.$store.state.auth.isSignedIn === true" -->
           <v-list-item-action>
             <v-icon>mdi-logout</v-icon>
           </v-list-item-action>
@@ -34,10 +35,8 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <<<<<<< HEAD
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      =======
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
@@ -52,11 +51,11 @@
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-      >>>>>>> feature/add-authentication
     </v-app-bar>
     <v-main>
       <v-container>
         <nuxt />
+        <Snackbar></Snackbar>
       </v-container>
     </v-main>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
@@ -77,14 +76,19 @@
 
 <script>
 import { Auth } from 'aws-amplify'
+import Snackbar from '~/components/Snackbar.vue'
+
 const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
+  components: { Snackbar },
   methods: {
     async handleLogout() {
       await Auth.signOut()
       Cookie.remove('auth')
       this.$store.commit('setAuth', null)
+      this.$router.push('/login')
+      this.$notifier.showMessage({ content: 'Logged out', color: 'info' })
     },
   },
   data() {

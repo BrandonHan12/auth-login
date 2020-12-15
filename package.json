@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^0.2.30",
-    "@nuxtjs/auth-next": "^5.0.0-1607335658.590bfae",
     "@nuxtjs/axios": "^5.12.3",
     "aws-amplify": "^3.3.11",
     "cookieparser": "^0.1.0",
