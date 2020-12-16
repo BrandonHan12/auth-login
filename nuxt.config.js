@@ -37,6 +37,7 @@ export default {
       src: '~/plugins/amplify.js',
       mode: 'client',
     },
+    '~/plugins/vee-validate.js',
     '~/plugins/notifier.js',
     '~/plugins/axios.js',
   ],
@@ -82,5 +83,5 @@ export default {
     },
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: { transpile: ['vee-validate/dist/rules'] },
 }

@@ -21,11 +21,11 @@ export default {
 
         this.$store.commit('setAuth', auth)
         Cookie.set('auth', auth)
-        this.$router.push('/')
+        this.$router.push('/club')
       })
     })
 
-    if (this.$store.state.auth?.signedIn === true) this.$router.push('/')
+    if (this.$store.state.auth?.signedIn === true) this.$router.push('/club')
   },
 }
 </script>
