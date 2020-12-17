@@ -94,21 +94,11 @@ export default {
     onSubmit(formData) {
       console.log(this.formData)
     },
-    // async createResource(data) {
-    //   console.log({ axios: this.$axios })
-    //   return
-    //   const formattedData = {
-    //     locationName: data.locationName,
-    //     description: data.description,
-    //     capacity: data.capacity,
-    //     hourlyRates: data.hourlyRates,
-    //   }
-    //   const response = await this.$axios.$post(
-    //     '/resources/add-resource',
-    //     formattedData
-    //   )
-    //   console.log(reponse)
-    // },
+    imageUploadToS3() {
+      //axios post to s3
+      //then catch response
+      //response to imageurl
+    },
   },
 }
 </script>
