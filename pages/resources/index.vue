@@ -75,6 +75,18 @@
           </v-row>
         </v-card>
       </v-col>
+      <v-col col="12">
+        <v-btn
+          class="mx-6 mt-16"
+          fab
+          dark
+          large
+          color="primary"
+          to="/resources/add-resource"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
