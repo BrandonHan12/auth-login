@@ -4,7 +4,7 @@ export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - auth-mod',
-    title: 'auth-mod',
+    title: 'IFYRD',
     meta: [
       {
         charset: 'utf-8',
@@ -37,6 +37,9 @@ export default {
       src: '~/plugins/amplify.js',
       mode: 'client',
     },
+    '~/plugins/vee-validate.js',
+    '~/plugins/notifier.js',
+    '~/plugins/axios.js',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -52,16 +55,13 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // '@nuxtjs/auth',
-    '@nuxtjs/auth-next',
   ],
   auth: {
     // Options
   },
-
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    // baseURL: 'https://xg4tq1q1a0.execute-api.ap-southeast-1.amazonaws.com/dev',
+    baseURL: process.env.API_URL,
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
@@ -82,9 +82,6 @@ export default {
       },
     },
   },
-  // router: {
-  //   middleware: ['auth']
-  // }
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: { transpile: ['vee-validate/dist/rules'] },
 }
