@@ -1,25 +1,18 @@
 <template>
   <div>
-    <v-btn @click="check"
-      ><nuxt-link to="'/resources/booking/'+this.res"></nuxt-link> submit
+    <calendar />
+    <v-btn to="/resources" icons-and-text>
+      Back to Resource list
+      <v-icon>mdi-backspace</v-icon>
     </v-btn>
   </div>
 </template>
 
 <script>
+import calendar from '@/components/calendar.vue'
 export default {
-  data() {
-    return {
-      slug: this.$route.params,
-    }
-  },
-  methods: {
-    async check(params, query, req, res, redirect, error) {
-      res = 'asdf'
-      await this.$axios.post('/resources/booking/', res)
-    },
-  },
+
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
