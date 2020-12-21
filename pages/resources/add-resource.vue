@@ -4,17 +4,17 @@
       <v-row class="d-flex flex-column justify-space-between mx-auto">
         <v-col cols="8">
           <div class="banner-image-wrapper">
-            <label>Banner Image</label>
+            <label>Image</label>
             <div v-if="imageSrc !== ''">
               <v-img
-                class="banner"
+                class="image"
                 :src="imageSrc"
                 @click="() => this.$refs.imageRef.click()"
               />
             </div>
             <div
               v-else
-              class="banner-placeholder image-select d-flex justify-center align-center"
+              class="image-placeholder image-select d-flex justify-center align-center"
               @click="() => this.$refs.imageRef.click()"
             >
               <v-icon>mdi-upload</v-icon>
@@ -27,7 +27,7 @@
                 accept="image/jpg, image/jpeg, image/png"
                 ref="imageRef"
                 class="d-none"
-                name="banner"
+                name="image"
                 @change="imageSelected"
               />
             </div>
@@ -78,7 +78,6 @@
             Hourly Rate
           </v-text-field>
           <v-btn color="error" method="post" @click="submit()"> text </v-btn>
-          {{ this.formData }}
         </v-col>
       </v-row>
     </v-form>
@@ -119,9 +118,8 @@ export default {
         const response = await this.$axios.$post('/resources', data)
         if (response) {
           const processPhotoFlag = await this.processPhotos(response)
-          this.loadingCreateWebshop = false
           if (processPhotoFlag) {
-            this.$router.push('/enroll/success')
+            this.$router.push('/')
           } else {
             alert('Photo uploading failed')
           }
@@ -132,16 +130,12 @@ export default {
         alert('Error', e)
       }
     },
-    imageUploadToS3() {
-      //axios post to s3
-      //then catch response
-      //response to imageurl
-    },
+
     imageSelected(e) {
       try {
         const { name, files } = e.target
         this.$emit('input', files[0])
-        if (name === 'banner') {
+        if (name === 'image') {
           this.image = this.$refs.imageRef.files[0]
           this.formData.imageSrc = this.image.name
           this.imageSrc = URL.createObjectURL(this.image)
@@ -191,11 +185,11 @@ export default {
   border-color: #b1abab;
   color: #b1abab;
 }
-.banner {
+.image {
   width: 100%;
   height: 300px;
 }
-.banner-placeholder {
+.image-placeholder {
   width: 100%;
   height: 300px;
 }

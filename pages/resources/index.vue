@@ -21,7 +21,7 @@
     </v-card> -->
     <v-row dense class="d-inline-flex">
       <v-col v-for="resource in resources" :key="resource.src" cols="4">
-        <v-card elevation="2" max-width="400" class="mx-auto">
+        <v-card elevation="2" max-width="375" class="mx-auto">
           <v-card-title primary-title> </v-card-title>
           <v-row>
             <v-col cols="12" class="mx-auto">
@@ -71,12 +71,23 @@
         </v-card>
       </v-col>
       <v-col :cols="4">
-        <div class="d-flex flex-column align-center">
-          <h3>add new resource</h3>
-          <v-btn fab dark x-large color="primary" to="/resources/add-resource">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-        </div>
+        <v-card elevation="0" min-height="600" class="pa-15">
+          <v-row>
+            <v-col style="height: 300px" class="d-flex justify-center">
+              <v-btn
+                fab
+                dark
+                height="100px"
+                width="100px"
+                color="primary"
+                to="/resources/add-resource"
+                style="margin-top: 195px"
+              >
+                <v-icon style="font-size: 75px">mdi-plus</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card>
       </v-col>
     </v-row>
   </div>
