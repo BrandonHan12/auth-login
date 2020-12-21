@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <confirm-dialog ref="confirm" />
     <div
       v-for="club in clubs"
@@ -118,7 +118,7 @@
         </v-row>
       </v-card>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

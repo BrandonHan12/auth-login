@@ -100,6 +100,11 @@ export default {
           title: 'Login',
           to: '/login',
         },
+        {
+          icon: 'mdi-home-group',
+          title: 'Resources',
+          to: '/resources',
+        },
       ],
       miniVariant: false,
       right: true,

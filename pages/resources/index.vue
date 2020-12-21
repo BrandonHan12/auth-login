@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <div>
     <!-- <v-card>
       <v-tabs
         v-model="tab"
@@ -20,17 +20,13 @@
       </v-tabs>
     </v-card> -->
     <v-row dense class="d-inline-flex">
-      <v-col
-        v-for="resource in resources"
-        :key="resource.src"
-        :cols="resource.flex"
-      >
-        <v-card elevation="0" max-width="400" class="mx-auto">
+      <v-col v-for="resource in resources" :key="resource.src" cols="4">
+        <v-card elevation="2" max-width="400" class="mx-auto">
           <v-card-title primary-title> </v-card-title>
           <v-row>
             <v-col cols="12" class="mx-auto">
               <v-col class="d-flex justify-center">
-                <v-carousel width="100" height="300" hide-delimiters>
+                <v-carousel width="100" height="200" hide-delimiters>
                   <v-carousel-item
                     v-for="(item, i) in items"
                     :key="i"
@@ -39,7 +35,7 @@
                     transition="fade-transition"
                   ></v-carousel-item>
                 </v-carousel>
-                <v-img :src="resource.imageSrc" max-height="300" />
+                <v-img :src="resource.imageSrc" max-height="200" />
               </v-col>
               <v-card-text>
                 <v-simple-table>
@@ -54,46 +50,40 @@
                     </tr>
                     <tr>
                       <td>Capacity</td>
-                      <td>{{ resource.capacity }}</td>
+                      <td>{{ resource.capacity }} pax</td>
                     </tr>
                     <tr>
                       <td>Rate</td>
-                      <td>{{ resource.hourlyRates }} / hr</td>
+                      <td>$ {{ resource.hourlyRates }} / hr</td>
                     </tr>
                   </tbody>
                 </v-simple-table>
 
-                <v-col class="d-flex justify-end pt-10 pr-0">
-                  <v-btn color="success" class="mr-2" to="/resources/booking">
+                <v-col class="d-flex justify-center">
+                  <v-btn color="success" class="mr-2" to="/resources/calendar">
                     Calendar
                     <v-icon>mdi-book-clock</v-icon>
                   </v-btn>
-                  <modal />
                 </v-col>
               </v-card-text>
             </v-col>
           </v-row>
         </v-card>
       </v-col>
-      <v-col col="12">
-        <v-btn
-          class="mx-6 mt-16"
-          fab
-          dark
-          large
-          color="primary"
-          to="/resources/add-resource"
-        >
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
+      <v-col :cols="4">
+        <div class="d-flex flex-column align-center">
+          <h3>add new resource</h3>
+          <v-btn fab dark x-large color="primary" to="/resources/add-resource">
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </div>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
 export default {
-  middleware: 'auth',
   data() {
     return {
       items: [
@@ -112,27 +102,32 @@ export default {
           location: 'Tennis Court 1',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam dapibus pellentesque. Nam a orci non tortor lacinia luctus ut non odio.',
-          capacity: '4',
-          hourlyRates: '$5',
+          capacity: 4,
+          hourlyRates: 5,
           imageSrc: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-          flex: 6,
         },
         {
           location: 'Tennis Court 2',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam dapibus pellentesque. Nam a orci non tortor lacinia luctus ut non odio.',
-          capacity: '4',
-          hourlyRates: '$5',
+          capacity: 4,
+          hourlyRates: 5,
           imageSrc: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          flex: 6,
         },
         {
-          location: 'BasketBall Court',
+          location: 'Meeting Room',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam dapibus pellentesque. Nam a orci non tortor lacinia luctus ut non odio.',
-          capacity: '10',
-          hourlyRates: '$30',
-          flex: 6,
+          capacity: 10,
+          hourlyRates: 30,
+        },
+        {
+          location: 'Tennis Court 1',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam dapibus pellentesque. Nam a orci non tortor lacinia luctus ut non odio.',
+          capacity: 4,
+          hourlyRates: 5,
+          imageSrc: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
         },
       ],
     }

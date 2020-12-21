@@ -53,7 +53,13 @@
                           color="info"
                           indeterminate
                         ></v-progress-circular>
-                        <v-btn key="check-storecode-btn" v-else @click="checkAvailabilitySubdomain()" text x-small>
+                        <v-btn
+                          key="check-storecode-btn"
+                          v-else
+                          @click="checkAvailabilitySubdomain()"
+                          text
+                          x-small
+                        >
                           <v-icon left>mdi-check</v-icon>
                           Check Availability
                         </v-btn>
@@ -63,7 +69,9 @@
                   <br />
                   <v-btn type="submit" :disabled="invalid">Next</v-btn>
                   <v-btn text>
-                    <nuxt-link to="/enroll" class="text-decoration-none">Cancel</nuxt-link>
+                    <nuxt-link to="/enroll" class="text-decoration-none"
+                      >Cancel</nuxt-link
+                    >
                   </v-btn>
                 </form>
               </validation-observer>
@@ -77,14 +85,21 @@
 
           <v-stepper-content step="2">
             <v-card elevate="6" class="pa-4">
-              <validation-observer ref="contactInfoObserver" v-slot="{ invalid }">
+              <validation-observer
+                ref="contactInfoObserver"
+                v-slot="{ invalid }"
+              >
                 <form @submit.prevent="goNext">
                   <v-row>
                     <v-col>
                       <country-select v-model="formData.country" />
                     </v-col>
                     <v-col>
-                      <validation-provider v-slot="{ errors }" name="Postal Code" rules="required|numeric|min:6">
+                      <validation-provider
+                        v-slot="{ errors }"
+                        name="Postal Code"
+                        rules="required|numeric|min:6"
+                      >
                         <!-- v-model="formData.postalCode" -->
                         <v-text-field
                           @input="searchPostal"
@@ -136,9 +151,17 @@
 
           <v-stepper-content step="3">
             <v-card elevate="6" class="pa-4">
-              <validation-observer ref="contactInfoObserver" v-slot="{ invalid }">
+              <validation-observer
+                ref="contactInfoObserver"
+                v-slot="{ invalid }"
+              >
                 <form @submit.prevent="goNext">
-                  <input-validation v-model="formData.name" label="Name" name="Name" rules="required" />
+                  <input-validation
+                    v-model="formData.name"
+                    label="Name"
+                    name="Name"
+                    rules="required"
+                  />
 
                   <input-validation
                     v-model="formData.phone"
@@ -146,7 +169,12 @@
                     name="Phone"
                     rules="required|max:8|min:8|numeric"
                   />
-                  <input-validation v-model="formData.email" label="Email" name="Email" rules="required|email" />
+                  <input-validation
+                    v-model="formData.email"
+                    label="Email"
+                    name="Email"
+                    rules="required|email"
+                  />
                   <br />
                   <v-btn type="submit" :disabled="invalid">Next</v-btn>
                   <v-btn text @click="goBack()">Previous</v-btn>
@@ -181,7 +209,12 @@
                   ></input-validation>
                   <v-row>
                     <v-col md="5">
-                      <validation-provider v-slot="{ errors }" name="Primary Color" vid="Subdomain" rules="min:7|max:7">
+                      <validation-provider
+                        v-slot="{ errors }"
+                        name="Primary Color"
+                        vid="Subdomain"
+                        rules="min:7|max:7"
+                      >
                         <v-text-field
                           v-model="formData.primaryColor"
                           label="Primary Color"
@@ -215,7 +248,11 @@
                   <div class="banner-image-wrapper">
                     <label>Banner Image</label>
                     <div v-if="bannerSrc !== ''">
-                      <img class="banner" :src="bannerSrc" @click="() => this.$refs.bannerRef.click()" />
+                      <img
+                        class="banner"
+                        :src="bannerSrc"
+                        @click="() => this.$refs.bannerRef.click()"
+                      />
                     </div>
                     <div
                       v-else
@@ -231,7 +268,7 @@
                         type="file"
                         accept="image/jpg, image/jpeg, image/png"
                         ref="bannerRef"
-                        class="d-none"
+                        class=""
                         name="banner"
                         @change="imageSelected"
                       />
@@ -242,7 +279,11 @@
                     <div class="banner-image-wrapper">
                       <label>Club Logo (50x50)</label>
                       <div v-if="iconSrc !== ''">
-                        <img class="icon" :src="iconSrc" @click="() => this.$refs.iconRef.click()" />
+                        <img
+                          class="icon"
+                          :src="iconSrc"
+                          @click="() => this.$refs.iconRef.click()"
+                        />
                       </div>
                       <div
                         v-else
@@ -297,7 +338,8 @@ import InputValidation from '@/components/InputValidation'
 import _debounce from 'lodash/debounce'
 import axios from '@nuxtjs/axios'
 
-const ONEMAP_API = 'https://developers.onemap.sg/commonapi/search?returnGeom=Y&getAddrDetails=Y&searchVal='
+const ONEMAP_API =
+  'https://developers.onemap.sg/commonapi/search?returnGeom=Y&getAddrDetails=Y&searchVal='
 
 export default {
   layout: 'landing-page',
@@ -386,10 +428,16 @@ export default {
     async processPhotos(response) {
       let isSuccesfulUpload = true
       if (response.banner_presigned_url) {
-        isSuccesfulUpload = await this.uploadPhoto(response.banner_presigned_url, this.banner)
+        isSuccesfulUpload = await this.uploadPhoto(
+          response.banner_presigned_url,
+          this.banner
+        )
       }
       if (response.icon_presigned_url) {
-        isSuccesfulUpload = await this.uploadPhoto(response.icon_presigned_url, this.icon)
+        isSuccesfulUpload = await this.uploadPhoto(
+          response.icon_presigned_url,
+          this.icon
+        )
       }
 
       return isSuccesfulUpload
@@ -413,7 +461,8 @@ export default {
     },
 
     searchPostal: _debounce(function (input) {
-      if (this.formData.country === 'Singapore') this.fetchAddressByPostalCode(input)
+      if (this.formData.country === 'Singapore')
+        this.fetchAddressByPostalCode(input)
       else this.formData.postalCode = input
     }, 1000),
 
@@ -432,7 +481,10 @@ export default {
           this.autoFillAddress(data.results[0])
         }
       } catch (e) {
-        console.log('There was an error trying to fetch the postal code address', e)
+        console.log(
+          'There was an error trying to fetch the postal code address',
+          e
+        )
       }
     },
 
@@ -442,17 +494,23 @@ export default {
       if (this.formData.subdomain === '') {
         this.subdomainAvailableDesc = []
         this.loadingCheckSubdomain = false
-        this.$refs.basicInfoObserver.setErrors({ subdomain: ['Please provide a subdomain first'] })
+        this.$refs.basicInfoObserver.setErrors({
+          subdomain: ['Please provide a subdomain first'],
+        })
         return false
       }
 
       try {
-        const response = await this.$axios.$get('/club/subdomain/check?subdomain=' + this.formData.subdomain)
+        const response = await this.$axios.$get(
+          '/club/subdomain/check?subdomain=' + this.formData.subdomain
+        )
         console.log({ response })
         if (response.exists) {
           this.subdomainAvailableDesc = []
           this.loadingCheckSubdomain = false
-          this.$refs.basicInfoObserver.setErrors({ subdomain: ['The subdomain has already been taken.'] })
+          this.$refs.basicInfoObserver.setErrors({
+            subdomain: ['The subdomain has already been taken.'],
+          })
           return false
         } else {
           this.$refs.basicInfoObserver.setErrors({ subdomain: [] })

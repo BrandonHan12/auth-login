@@ -53,14 +53,13 @@
 export default {
   data: () => ({
     type: 'month',
-    types: ['month', 'week', 'day', '4day'],
+    types: ['month', 'week', 'day'],
     mode: 'column',
     weekday: [0, 1, 2, 3, 4, 5, 6],
     weekdays: [
       { text: 'Sun - Sat', value: [0, 1, 2, 3, 4, 5, 6] },
       { text: 'Mon - Sun', value: [1, 2, 3, 4, 5, 6, 0] },
       { text: 'Mon - Fri', value: [1, 2, 3, 4, 5] },
-      { text: 'Mon, Wed, Fri', value: [1, 3, 5] },
     ],
     value: '',
     events: [],
@@ -68,7 +67,6 @@ export default {
     names: [
       'Meeting',
       'Holiday',
-      'PTO',
       'Travel',
       'Event',
       'Birthday',
@@ -80,8 +78,8 @@ export default {
     getEvents({ start, end }) {
       const events = []
 
-      const min = new Date(`${start.date}T00:00:00`)
-      const max = new Date(`${end.date}T23:59:59`)
+      const min = new Date(`${start.date}T09:30:00`)
+      const max = new Date(`${end.date}T23:00:00`)
       const days = (max.getTime() - min.getTime()) / 86400000
       const eventCount = this.rnd(days, days + 20)
 
