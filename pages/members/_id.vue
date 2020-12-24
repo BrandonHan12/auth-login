@@ -2,16 +2,25 @@
   <v-container>
     <div>member id: {{ $route.params.id }}</div>
     <v-row dense>
-      <v-col v-for="member in members" :key="member.name" cols="4">
+      <v-col
+        v-for="member in members"
+        v-if="member.memberId == $route.params.id"
+        :key="member.name"
+        cols="10"
+      >
         <v-card max-width="375" class="mx-auto">
           <v-img
             src="https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
-            height="300px"
+            height="250px"
             dark
           >
-            <v-row class="fill-height">
-              <v-spacer></v-spacer>
-              <v-card-title class="white--text mr-16 pt-12">
+            <v-row class="fill-height d-flex justify-center">
+              <v-card-title
+                class="white--text d-flex flex-column justify-center"
+              >
+                <v-list-item-avatar style="width: 120px; height: 120px">
+                  <v-img :src="member.avatar" />
+                </v-list-item-avatar>
                 <div class="display-1 align-content-space-around">
                   {{ member.name }}
                 </div>
@@ -34,12 +43,15 @@
             <v-divider inset></v-divider>
 
             <v-list-item>
-              <v-list-item-icon>
+              <v-list-item-icon class="d-flex justify-center">
                 <v-icon color="indigo"> mdi-email </v-icon>
               </v-list-item-icon>
 
               <v-list-item-content>
-                <v-list-item-title>{{ member.email }}</v-list-item-title>
+                <v-list-item-title>Email</v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ member.email }}
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
 
@@ -79,13 +91,18 @@
 
 <script>
 export default {
+  // async fetch() {
+  //   const { data } = await this.$axios.get('/members/' + '$route.params.id')
+  //   console.log(data)
+  //   this.members = data
+  // },
   data() {
     return {
       members: [
         {
           memberId: '1',
           name: 'Jennifer Lee',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
           email: 'jen@gmail.com',
           contact: '12345678',
           birthday: '12/12/80',
@@ -109,7 +126,7 @@ export default {
         {
           memberId: '3',
           name: 'Tan Ah Kow',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
           email: 'Itadori@yahoo.com',
           contact: '12345678',
           birthday: '12/12/80',
@@ -121,7 +138,7 @@ export default {
         {
           memberId: '4',
           name: 'Johnson Lim',
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
           email: 'Jon.lim@yahoo.com',
           contact: '12345678',
           birthday: '10/02/80',
@@ -162,7 +179,7 @@ export default {
           contact: '12345678',
           birthday: '10/02/80',
           gender: 'M',
-          membershipType: '1',
+          membershipType: '4',
           dateJoined: '10/05/10',
           subStatus: 'Inactive',
         },
@@ -174,7 +191,7 @@ export default {
           contact: '12345678',
           birthday: '10/02/80',
           gender: 'M',
-          membershipType: '1',
+          membershipType: '2',
           dateJoined: '10/05/10',
           subStatus: 'Active',
         },

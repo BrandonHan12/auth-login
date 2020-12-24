@@ -1,13 +1,11 @@
 {
   "auth": {
-    "aloginc44959cd": {
+    "authlogin58713b9a": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
     }
-  },
-  "function": {},
-  "api": {}
+  }
 }
