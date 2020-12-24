@@ -18,18 +18,12 @@
             <td>{{ item.clubName }}</td>
             <td>{{ item.name }}</td>
             <td>
-              <v-chip class="ma-2" v-if="item.status == 0"> Pending </v-chip>
-              <v-chip class="ma-2" v-else-if="item.status == 1" color="success">
-                Approved
-              </v-chip>
-              <v-chip class="ma-2" v-else-if="item.status == 2" color="danger">
-                Rejected
-              </v-chip>
+              <v-chip class="ma-2" v-if="item.status == 0">Pending</v-chip>
+              <v-chip class="ma-2" v-else-if="item.status == 1" color="success">Approved</v-chip>
+              <v-chip class="ma-2" v-else-if="item.status == 2" color="danger">Rejected</v-chip>
             </td>
             <td>
-              <v-btn color="primary" @click="loadClub(item)">
-                See details
-              </v-btn>
+              <v-btn color="primary" @click="loadClub(item)">See details</v-btn>
             </td>
           </tr>
         </tbody>
