@@ -77,7 +77,9 @@
           >
             Hourly Rate
           </v-text-field>
-          <v-btn color="error" method="post" @click="submit()"> text </v-btn>
+          <v-btn color="success" method="post" @click="submit()">
+            submit
+          </v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -87,15 +89,16 @@
 export default {
   data: () => ({
     formData: {
+      pk: '',
+      sk: 'club',
       locationName: '',
       description: '',
       capacity: '',
       hourlyRates: '',
-      imageSrc: '',
-      imageUrl: '',
+      image: '',
     },
-    imageSrc: '',
     image: '',
+    imageSrc: '',
 
     locationNameRules: [
       (v) => !!v || 'Name is required',
@@ -112,32 +115,31 @@ export default {
     submit() {
       this.createResource(this.formData)
     },
-
     async createResource(data) {
+      // CMS url
+      // https://bhv44oqdu7.execute-api.ap-southeast-1.amazonaws.com/dev
       try {
         const response = await this.$axios.$post('/resources', data)
         if (response) {
           const processPhotoFlag = await this.processPhotos(response)
           if (processPhotoFlag) {
-            this.$router.push('/')
+            this.$router.push('/resources')
           } else {
             alert('Photo uploading failed')
           }
         }
       } catch (e) {
-        this.loadingCreateWebshop = false
         console.log({ e })
         alert('Error', e)
       }
     },
-
     imageSelected(e) {
       try {
         const { name, files } = e.target
         this.$emit('input', files[0])
         if (name === 'image') {
           this.image = this.$refs.imageRef.files[0]
-          this.formData.imageSrc = this.image.name
+          this.formData.image = this.image.name
           this.imageSrc = URL.createObjectURL(this.image)
         }
       } catch (e) {
@@ -146,20 +148,18 @@ export default {
     },
     async processPhotos(response) {
       let isSuccesfulUpload = true
-      if (response.image_presigned_url) {
+      if (response.resource_presigned_url) {
         isSuccesfulUpload = await this.uploadPhoto(
-          response.image_presigned_url,
+          response.resource_presigned_url,
           this.image
         )
       }
       return isSuccesfulUpload
     },
-
     async uploadPhoto(url, file) {
       let body = new FormData()
       body.append('file', file)
       const fileName = file.name
-
       const response = await fetch(url, {
         method: 'PUT',
         body: file,

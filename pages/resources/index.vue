@@ -21,7 +21,7 @@
     </v-card> -->
     <v-row dense class="d-inline-flex">
       <v-col :cols="4">
-        <v-card elevation="0" min-height="600" class="pa-15">
+        <v-card elevation="0" min-height="620" class="pa-15">
           <v-row>
             <v-col style="height: 300px" class="d-flex justify-center">
               <v-btn
