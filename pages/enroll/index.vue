@@ -60,8 +60,12 @@
                           text
                           x-small
                         >
+<<<<<<< Updated upstream
                           <v-icon left>mdi-check</v-icon>
                           Check Availability
+=======
+                          <v-icon left>mdi-check</v-icon>Check Availability
+>>>>>>> Stashed changes
                         </v-btn>
                       </template>
                     </v-text-field>
@@ -259,8 +263,7 @@
                       class="banner-placeholder image-select d-flex justify-center align-center"
                       @click="() => this.$refs.bannerRef.click()"
                     >
-                      <v-icon>mdi-upload</v-icon>
-                      Click here to upload
+                      <v-icon>mdi-upload</v-icon>Click here to upload
                     </div>
 
                     <div>
@@ -353,9 +356,9 @@ export default {
   data: () => ({
     stepNum: 1,
     formData: {
-      clubName: 'cuervo golf club',
-      interest: 'Sports',
-      subdomain: 'cuervogc',
+      clubName: '',
+      interest: '',
+      subdomain: '',
 
       addressBlock: '',
       addressRoad: '',
